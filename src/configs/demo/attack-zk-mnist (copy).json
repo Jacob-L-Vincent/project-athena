@@ -1,0 +1,13 @@
+{
+  "num_attacks": 2,
+  "configs0": {
+    "attack": "fgsm",
+    "description": "FGSM_eps0.25",
+    "eps": 0.25
+  },
+  "configs1": {
+    "attack": "pgd",
+    "description": "PGD_eps0.25",
+    "eps": 0.25
+  }
+}
