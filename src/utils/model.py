@@ -18,15 +18,20 @@ from models.keras import WeakDefense
 tf.compat.v1.disable_eager_execution()
 
 
-def load_pool(trans_configs, model_configs, active_list=False, use_logits=False, wrap=False):
+def load_pool(trans_configs, model_configs, active_list=False, use_logits=False,
+              wrap=False, customList=False, custom_wds=[]):
     pool = {}
     trans_list = {}
 
     if active_list:
         wd_ids = trans_configs.get("active_wds")
+    elif customList:
+        wd_ids = custom_wds
     else:
         num_trans = trans_configs.get("num_transformations")
         wd_ids = [i for i in range(num_trans)]
+
+    
     for i in wd_ids:
         key = "configs{}".format(i)
         trans = trans_configs.get(key).get("description")

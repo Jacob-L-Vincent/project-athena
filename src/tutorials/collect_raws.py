@@ -51,9 +51,8 @@ def collect_raw_prediction(trans_configs, model_configs, data_configs,
 
     # collect raw predictions
     raw_preds = athena.predict(x=x_bs, raw=True)
-    print(">>> Shape of raw predictions ({}): {}\n{}".format("logits" if use_logits else "probability",
-                                                             raw_preds.shape,
-                                                             raw_preds))
+    print(">>> Shape of raw predictions ({}): {}".format("logits" if use_logits else "probability",
+                                                             raw_preds.shape))
     print()
 
     # get the final predictions

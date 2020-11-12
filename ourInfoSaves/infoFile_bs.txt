@@ -1,0 +1,8 @@
+Info file for ensemble prediction of benign samples
+
+numberToSubset: 100, doRandom: True
+
+useActiveList: True
+customList: False
+wdList: 
+[]
