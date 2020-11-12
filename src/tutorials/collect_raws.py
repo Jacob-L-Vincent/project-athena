@@ -19,7 +19,7 @@ from models.athena import Ensemble, ENSEMBLE_STRATEGY
 
 def collect_raw_prediction(trans_configs, model_configs, data_configs,
                            subset=[i for i in range(0,2)], use_subset=True, 
-                           use_logits=False):
+                           use_logits=False, useActiveList=True):
     """
 
     :param trans_configs:
@@ -32,7 +32,7 @@ def collect_raw_prediction(trans_configs, model_configs, data_configs,
     # load the pool and create the ensemble
     pool, _ = load_pool(trans_configs=trans_configs,
                         model_configs=model_configs,
-                        active_list=True,
+                        active_list=useActiveList,
                         use_logits=use_logits,
                         wrap=True
                         )
