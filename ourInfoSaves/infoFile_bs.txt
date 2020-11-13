@@ -2,7 +2,7 @@ Info file for ensemble prediction of benign samples
 
 numberToSubset: 100, doRandom: True
 
-useActiveList: True
+useActiveList: False
 customList: False
 wdList: 
 []

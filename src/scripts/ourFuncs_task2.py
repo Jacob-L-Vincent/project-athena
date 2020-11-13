@@ -14,13 +14,7 @@ import os
 # function to make a list of indices to subset the benign samples and get the
 #  corresponding unused indices as well
 def generate_subset(totalSize=4,number=2,doRandom=False,
-                    odir='default',doSave=True):
-    
-    # set output path to /ourInfoSaves as default value
-    if(odir=='default'):
-        odir = os.path.abspath(os.path.join('../../ourInfoSaves'))
-        print(odir)
-    
+                    opath='default',doSave=True):
     # gnerate a random subset
     if(doRandom):
         subset = random.sample(range(totalSize), number)
@@ -33,7 +27,15 @@ def generate_subset(totalSize=4,number=2,doRandom=False,
         subsetElse.remove(i)
     # save the indices to .npy arrays so we can reference them later
     if(doSave):
-        np.save(odir+"/"+"subset.npy",subset)
-        np.save(odir+"/"+"subsetElse.npy",subsetElse)
+        if(opath == 'default'):
+            odir = os.path.abspath(os.path.join('../ourInfoSaves'))
+            opath1 = odir+"/"+"subset.npy"
+            opath2 = odir+"/"+"subsetElse.npy"
+        else:
+            opath1 = opath[0]
+            opath2 = opath[1]
+        
+        np.save(opath1, subset)
+        np.save(opath2, subsetElse)
         
     return subset, subsetElse 
