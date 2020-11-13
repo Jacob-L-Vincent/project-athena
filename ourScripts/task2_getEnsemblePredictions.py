@@ -10,7 +10,6 @@ if module_path not in sys.path:
     sys.path.append(module_path)
     
 import numpy as np
-import pandas as pd
 import os
 from matplotlib import pyplot as plt
 
@@ -24,9 +23,11 @@ trans_configs = load_from_json("../src/configs/demo/athena-mnist_demoCopy.json")
 model_configs = load_from_json("../src/configs/demo/model-mnist.json")
 data_configs = load_from_json("../src/configs/demo/data-mnist.json")
 
-output_dir = "../ourDataFiles"
+output_dir = "../ourDataFiles/ensembleOuts"
 save_output = True
+verbose = 10
 
+######################################################
 ### setup the ensemble pool of weak defenses
 
 # This wdList can be changed to a list of indexes of weak defenses in the 
@@ -46,76 +47,67 @@ athena = setup_ensemble(trans_configs=trans_configs,
                         customList=customList, wdList=wdList)
 
 ######################################################
-#### collect the probabilities for the benign samples
+### generate subset indexes for exmaples and save info file
 
 # define the subset parameters
-numberToSubset = 100
-doRandom = True
+numberToSubset = 10000
+doRandom = False
 totalNumData = 10000
 
 # generate subset indexes to grab benign samples
 subset, subsetElse = generate_subset(totalSize=totalNumData,doSave=True,
                                      number=numberToSubset,doRandom=doRandom,
-                                     opath='default')
+                                     opath=[r"../ourInfoSaves/ensPred_subset.npy",
+                                            r"../ourInfoSaves/ensPred_subsetElse.npy"])
 
+# save info in a text file
+if save_output:
+    info_file = open(r"../ourInfoSaves/infoFile_ensPred.txt","w")
+    info_file.write("Info file for ensemble predictions\n\n")
+    info_file.write("numberToSubset: {}, doRandom: {}\nsubset:\n".format(
+            numberToSubset, doRandom))
+    info_file.write("{}\n\n".format(subset))
+    info_file.write("useActiveList: {}\ncustomList: {}\nwdList: \n{}\n\n".format(
+            str(useActiveList), str(customList), wdList) )
+    info_file.write("dimensions of raw npy arrays: wd, input, class")
+    info_file.close()
+    
+
+############################################################################
+## generate and collect probabilities of benign samples
 bs_file = os.path.join(data_configs.get('dir'), data_configs.get('bs_file'))
 x_bs = np.load(bs_file)
-print("benign sample data dimensions: {}".format(x_bs.shape))
+if(verbose>5): print("\nbenign sample data dimensions: {}\n".format(x_bs.shape))
 totalNumData = x_bs.shape[0]
 
 x_bs = [x_bs[i] for i in subset]
 # grab predictions
 preds = athena.predict(x=x_bs) # raw is False by default
 preds_raw = athena.predict(x=x_bs,raw=True)
-print(">>> Shape of benign ensemble predictions: {}".format(preds.shape))
+if(verbose>5): print("\n>>> Shape of benign ensemble predictions: {}\n".format(preds.shape))
 
-# save data for benign samples
 if save_output:
-    info_file = open(r"../ourInfoSaves/infoFile_bs.txt","w")
-    info_file.write("Info file for ensemble prediction of benign samples\n\n")
-    info_file.write("numberToSubset: {}, doRandom: {}\n\n".format(
-            numberToSubset, doRandom))
-    info_file.write("useActiveList: {}\ncustomList: {}\nwdList: \n{}".format(
-            str(useActiveList), str(customList), wdList) )
-    info_file.close()
-    
+    np.save(output_dir+"/"+"ensemPredic_benign_raw.npy",preds_raw)
     np.save(output_dir+"/"+"ensemPredic_benign.npy",preds)
+
 
 
 ###########################################################################
 ### generate and collect the probabilities for our advers. examples
-ae_dir, ae_files = trans_configs.get('ae_dir'), trans_configs.get('ae_files')
-ae_subset = [ae_files[i] for i in range(0,len(ae_files),3)]
-results = pd.DataFrame(columns=[")
+ae_dir, ae_files = data_configs.get('ae_dir'), data_configs.get('ae_files')
 
-
-
-
-
-new_row = {"ae":fileName.replace(".npy",","), "UM":err_um, 
-                   "BL":err_bl, "Ensemble":err_ens}
-        results = results.append(new_row,ignore_index=True)
-
-
-
-###############################################
-### ran this once to generate subset of aversarial examples
-###  I copied the results into wd_list so that it was static
-num_trans = trans_configs.get('num_transformations')
-
-dummy,_ = generate_subset(totalSize=num_trans,doSave=True,
-                        number=30,doRandom=doRandom, 
-                        opath=[r"../ourInfoSaves/wd_list_subset.npy",
-                               r"../ourInfoSaves/wd_list_subsetElse.npy"] )
-print(dummy)
-
-
-
-
-
-
-
-
-
+for ae_file in ae_files:
+    ae_file1 = os.path.join(ae_dir, ae_file)
+    x_ae = np.load(ae_file1)
+    x_ae = [x_ae[i] for i in subset]
+    # grab predictions
+    preds = athena.predict(x=x_ae) # raw is False by default
+    preds_raw = athena.predict(x=x_ae,raw=True)
+    
+    if save_output:
+        np.save(output_dir+"/"+"ensemPredic_raw_{}".format(ae_file),preds_raw)
+        np.save(output_dir+"/"+"ensemPredic_{}".format(ae_file),preds)
+    
+    if(verbose>5): print("\n>>> Shape of ae ensemble {} predictions: {}\n".format(ae_file,preds.shape))
 
 

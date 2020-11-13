@@ -1,6 +1,7 @@
 """
 Code pieces for collecting raw values from WDs on the input(s).
-@author: Ying Meng (y(dot)meng201011(at)gmail(dot)com)
+@author: Isaac Keohane isackeohane95@gmail.com
+adapted from: Ying Meng (y(dot)meng201011(at)gmail(dot)com)
 """
 
 import sys
