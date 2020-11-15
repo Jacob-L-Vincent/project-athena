@@ -19,7 +19,7 @@ from scripts.setup_ensemble import setup_ensemble
 
 
 # load experiment configurations
-trans_configs = load_from_json("../src/configs/demo/athena-mnist_demoCopy.json")
+trans_configs = load_from_json("../src/configs/demo/athena-mnist.json")
 model_configs = load_from_json("../src/configs/demo/model-mnist.json")
 data_configs = load_from_json("../src/configs/demo/data-mnist.json")
 
@@ -50,9 +50,9 @@ athena = setup_ensemble(trans_configs=trans_configs,
 ### generate subset indexes for exmaples and save info file
 
 # define the subset parameters
-numberToSubset = 10000
-doRandom = False
-totalNumData = 10000
+numberToSubset = 100
+doRandom = True
+totalNumData = 100
 
 # generate subset indexes to grab benign samples
 subset, subsetElse = generate_subset(totalSize=totalNumData,doSave=True,
@@ -109,5 +109,25 @@ for ae_file in ae_files:
         np.save(output_dir+"/"+"ensemPredic_{}".format(ae_file),preds)
     
     if(verbose>5): print("\n>>> Shape of ae ensemble {} predictions: {}\n".format(ae_file,preds.shape))
+ 
+##################################################33
+
+dirt = '/home/isaac/working_directory/misc/project-athena/data2_genAEs_weakD'
+dirs = os.listdir(dirt)
+results = []
+results += [file for file in dirs]
+
+for filename in results:
+    x_ae = np.load(dirt + '/' + filename)
+    x_ae = [x_ae[i] for i in subset]
+    # grab predictions
+    preds = athena.predict(x=x_ae) # raw is False by default
+    preds_raw = athena.predict(x=x_ae,raw=True)
+    
+    if save_output:
+        np.save(output_dir+"/"+"ensemPredic_raw_{}".format(filename),preds_raw)
+        np.save(output_dir+"/"+"ensemPredic_{}".format(filename),preds)
+    
+    if(verbose>5): print("\n>>> Shape of ae ensemble {} predictions: {}\n".format(filename,preds.shape))    
 
 
