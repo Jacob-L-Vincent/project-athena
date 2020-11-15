@@ -1,0 +1,118 @@
+ML model Created on Weak defense samples:
+"test_AE-mnist-cnn-clean-fgsm_eps0.1.npy",
+        "test_AE-mnist-cnn-clean-fgsm_eps0.15.npy",
+        "test_AE-mnist-cnn-clean-fgsm_eps0.2.npy",
+        "test_AE-mnist-cnn-clean-fgsm_eps0.25.npy",
+        "test_AE-mnist-cnn-clean-fgsm_eps0.3.npy",
+        "test_AE-mnist-cnn-clean-bim_ord2_eps0.75.npy",
+        "test_AE-mnist-cnn-clean-bim_ord2_eps0.85.npy",
+        "test_AE-mnist-cnn-clean-bim_ord2_eps1.npy",
+        "test_AE-mnist-cnn-clean-bim_ord2_eps1.1.npy",
+        "test_AE-mnist-cnn-clean-bim_ord2_eps1.2.npy",
+        "test_AE-mnist-cnn-clean-bim_ordinf_eps0.075.npy",
+        "test_AE-mnist-cnn-clean-bim_ordinf_eps0.082.npy",
+        "test_AE-mnist-cnn-clean-bim_ordinf_eps0.09.npy",
+        "test_AE-mnist-cnn-clean-bim_ordinf_eps0.1.npy",
+        "test_AE-mnist-cnn-clean-bim_ordinf_eps0.12.npy",
+        "test_AE-mnist-cnn-clean-cw_l2_lr0.0098.npy",
+        "test_AE-mnist-cnn-clean-cw_l2_lr0.01.npy",
+        "test_AE-mnist-cnn-clean-cw_l2_lr0.012.npy",
+        "test_AE-mnist-cnn-clean-cw_l2_lr0.015.npy",
+        "test_AE-mnist-cnn-clean-cw_l2_lr0.018.npy",
+        "test_AE-mnist-cnn-clean-deepfool_l2_overshoot3.npy",
+        "test_AE-mnist-cnn-clean-deepfool_l2_overshoot5.npy",
+        "test_AE-mnist-cnn-clean-deepfool_l2_overshoot8.npy",
+        "test_AE-mnist-cnn-clean-deepfool_l2_overshoot16.npy",
+        "test_AE-mnist-cnn-clean-deepfool_l2_overshoot50.npy",
+        "test_AE-mnist-cnn-clean-jsma_theta0.15_gamma0.5.npy",
+        "test_AE-mnist-cnn-clean-jsma_theta0.17_gamma0.5.npy",
+        "test_AE-mnist-cnn-clean-jsma_theta0.18_gamma0.5.npy",
+        "test_AE-mnist-cnn-clean-jsma_theta0.21_gamma0.5.npy",
+        "test_AE-mnist-cnn-clean-jsma_theta0.25_gamma0.5.npy",
+        "test_AE-mnist-cnn-clean-pgd_eps0.075.npy",
+        "test_AE-mnist-cnn-clean-pgd_eps0.082.npy",
+        "test_AE-mnist-cnn-clean-pgd_eps0.09.npy",
+        "test_AE-mnist-cnn-clean-pgd_eps0.1.npy",
+        "test_AE-mnist-cnn-clean-pgd_eps0.11.npy",
+        "test_AE-mnist-cnn-clean-mim_eps0.06.npy",
+        "test_AE-mnist-cnn-clean-mim_eps0.067.npy",
+        "test_AE-mnist-cnn-clean-mim_eps0.075.npy",
+        "test_AE-mnist-cnn-clean-mim_eps0.085.npy",
+        "test_AE-mnist-cnn-clean-mim_eps0.1.npy",
+        "test_AE-mnist-cnn-clean-onepixel_pxCount15.npy",
+        "test_AE-mnist-cnn-clean-onepixel_pxCount30.npy",
+        "test_AE-mnist-cnn-clean-onepixel_pxCount35.npy",
+        "test_AE-mnist-cnn-clean-onepixel_pxCount40.npy",
+        "test_AE-mnist-cnn-clean-onepixel_pxCount75.npy"
+
+100 AE's and predicted results were taken from each of the  Generated Ae's from the weak defenses above
+
+The ML model was trained on the first 4000 of the combined matrix  aE'S AND TESTED AGAINS THE LAST 400
+
+Using Elu:
+136/136 [==============================] - 2s 12ms/step - loss: 0.3620 - accuracy: 0.9040
+Epoch 2/7
+136/136 [==============================] - 1s 8ms/step - loss: 0.0895 - accuracy: 0.9734
+Epoch 3/7
+136/136 [==============================] - 1s 10ms/step - loss: 0.0629 - accuracy: 0.9762
+Epoch 4/7
+136/136 [==============================] - 2s 15ms/step - loss: 0.0496 - accuracy: 0.9840
+Epoch 5/7
+136/136 [==============================] - 2s 13ms/step - loss: 0.0455 - accuracy: 0.9829
+Epoch 6/7
+136/136 [==============================] - 1s 8ms/step - loss: 0.0382 - accuracy: 0.9843
+Epoch 7/7
+136/136 [==============================] - 1s 7ms/step - loss: 0.0458 - accuracy: 0.9836
+
+The loss and accuracy of the Weak def model vs itself is
+0.06850133836269379 0.9784771800041199
+The loss and accuracy of the model vs benighn examples is
+1.2455235719680786 0.7232000231742859
+The loss and accuracy of the model vs Task 1 gen AEs examples is
+3.6784958839416504 0.4919697046279907
+
+Using Relu:
+
+136/136 [==============================] - 2s 13ms/step - loss: 0.4854 - accuracy: 0.8757
+Epoch 2/7
+136/136 [==============================] - 1s 9ms/step - loss: 0.0859 - accuracy: 0.9718
+Epoch 3/7
+136/136 [==============================] - 1s 10ms/step - loss: 0.0651 - accuracy: 0.9769
+Epoch 4/7
+136/136 [==============================] - 2s 13ms/step - loss: 0.0539 - accuracy: 0.9806
+Epoch 5/7
+136/136 [==============================] - 2s 13ms/step - loss: 0.0439 - accuracy: 0.9833
+Epoch 6/7
+136/136 [==============================] - 2s 12ms/step - loss: 0.0406 - accuracy: 0.9831
+Epoch 7/7
+136/136 [==============================] - 1s 9ms/step - loss: 0.0418 - accuracy: 0.9840
+
+The loss and accuracy of the Weak def model vs itself is
+0.03300371766090393 0.987734317779541
+The loss and accuracy of the model vs benighn examples is
+1.1565494537353516 0.7325000166893005
+The loss and accuracy of the model vs Task 1 gen AEs examples is
+3.198460102081299 0.5182575583457947
+
+Using Sigmoid;
+
+136/136 [==============================] - 2s 12ms/step - loss: 1.4940 - accuracy: 0.6052
+Epoch 2/7
+136/136 [==============================] - 1s 6ms/step - loss: 0.4148 - accuracy: 0.9477
+Epoch 3/7
+136/136 [==============================] - 1s 9ms/step - loss: 0.1772 - accuracy: 0.9678
+Epoch 4/7
+136/136 [==============================] - 1s 6ms/step - loss: 0.1149 - accuracy: 0.9736
+Epoch 5/7
+136/136 [==============================] - 2s 13ms/step - loss: 0.1008 - accuracy: 0.9722
+Epoch 6/7
+136/136 [==============================] - 2s 15ms/step - loss: 0.0704 - accuracy: 0.9801
+Epoch 7/7
+136/136 [==============================] - 2s 13ms/step - loss: 0.0595 - accuracy: 0.9831
+
+The loss and accuracy of the Weak def model vs itself is
+0.050099071115255356 0.9868085980415344
+The loss and accuracy of the model vs benighn examples is
+0.9333667159080505 0.7351999878883362
+The loss and accuracy of the model vs Task 1 gen AEs examples is
+1.8960795402526855 0.5644696950912476
