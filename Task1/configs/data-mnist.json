@@ -1,5 +1,6 @@
 {
     "dir": "data/",
+    "results_dir": "results/",
     "ae_dir": "data/",
     "bs_file": "test_BS-mnist-clean.npy",
     "label_file": "test_Label-mnist-clean.npy",

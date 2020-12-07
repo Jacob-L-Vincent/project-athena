@@ -26,15 +26,6 @@ X_bs = np.load(data_configs.get(bs_path)
 tl_path = os.path.join(data_configs.get('dir'), data_configs.get('label_file'))
 labels = np.load(tl_path)
 
-# get random subsamples
-# for MNIST, num_classes is 10
-# files "subsamples-mnist-ratio_0.1-xxxxxx.npy" and "sublabels-mnist-ratio_0.1-xxxxxx.npy"
-# will be generated and saved at "/results" folder, where "xxxxxx" are timestamps.
-#subsamples, sublabels = subsampling(data=X_bs,
-#                                    labels=labels,
-#                                    num_classes=10,
-#                                    filepath=output_root,
-#                                    filename='mnist')
 
 ######################################
 
@@ -74,7 +65,7 @@ outData = evaluate(trans_configs=trans_configs,
                    save=False,
                    output_dir=output_root)
 
-outData.to_csv(os.path.join("results/", "dataOut.csv"))
+outData.to_csv(os.path.join(data_configs.get("results_dir", "dataOut.csv"))
 
 
 
