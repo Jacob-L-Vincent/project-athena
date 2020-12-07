@@ -33,7 +33,6 @@ task1FGSM = results.loc[( (results['ae_type']=="aes_task1") | (results['ae_type'
 benign = results.loc[(results['ae_type']=="benign")]
 task1FGSM = pd.concat([task1FGSM, benign])
 
-<<<<<<< HEAD
 
 wds = results.loc[(results['ae_type']=="aes_wds_overall") |
                         (results['ae_type']=="aes_task1_overall") |
@@ -46,8 +45,7 @@ wds = results.loc[(results['ae_type']=="aes_wds_overall") |
 # weakd.to_csv('EnsembleAEs.csv')     
 
                   
-=======
->>>>>>> b7b1a495be542da1e4271f1ee67bca9b3b28cf84
+
 ax1 = weakd.plot.barh(x='label', y='accuracy',title = 'Accuracy of individual ensmeble results')
 ax1.set_xlabel("Accuracy")
 ax1.set_ylabel("Ensemble weak Defense")
@@ -60,11 +58,9 @@ ax3 = task1FGSM.plot.barh(x='label', y='accuracy',title = 'Accuracy of FGSM AEs 
 ax3.set_xlabel("Accuracy")
 ax3.set_ylabel("Task1 FGSM AE's")
 
-<<<<<<< HEAD
 ax4 = wds.plot.barh(x='label', y='accuracy',title = 'Accuracy of Models using Sigmoid')
 ax4.set_xlabel("Accuracy", fontweight='bold')
 ax4.set_ylabel("Evaluations of models against different AE's", fontweight='bold')
 
-=======
->>>>>>> b7b1a495be542da1e4271f1ee67bca9b3b28cf84
+
 
