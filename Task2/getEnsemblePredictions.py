@@ -22,7 +22,7 @@ trans_configs = load_from_json("configs/athena-mnist.json")
 model_configs = load_from_json("configs/model-mnist.json")
 data_configs = load_from_json("configs/data-mnist.json")
 
-output_dir = "models"
+output_dir = "models/"
 save_output = True
 verbose = 10
 
@@ -79,7 +79,7 @@ if(verbose>5): print("\n>>> Shape of benign ensemble predictions: {}\n".format(p
 
 # save predictions
 if save_output:
-    np.save(output_dir+"/"+"ensemPredic_benignInput_probs.npy",preds)
+    np.save(os.path.join(output_dir,"ensemPredic_benignInput_probs.npy"),preds)
 
 
  
