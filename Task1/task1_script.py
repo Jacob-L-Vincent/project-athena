@@ -1,8 +1,6 @@
 import os
 import sys
 
-os.chdir('/home/isaac/working_directory/misc/project-athena/notebooks')
-
 module_path = os.path.abspath(os.path.join('../src'))
 if module_path not in sys.path:
     sys.path.append(module_path)
@@ -23,12 +21,12 @@ output_root = "../results"
 
 # load the full-sized benign samples
 #file = os.path.join(data_configs.get('dir'), data_configs.get('bs_file'))
-file = '/home/isaac/working_directory/misc/project-athena/data/test_BS-mnist-clean.npy'
+file = 'data/test_BS-mnist-clean.npy'
 X_bs = np.load(file)
 
 # load the corresponding true labels
 #file = os.path.join(data_configs.get('dir'), data_configs.get('label_file'))
-file = '/home/isaac/working_directory/misc/project-athena/data/test_Label-mnist-clean.npy'
+file = 'data/test_Label-mnist-clean.npy'
 labels = np.load(file)
 
 # get random subsamples
@@ -49,9 +47,9 @@ from utils.metrics import error_rate
 from attacks.attack import generate
 
 # loading experiment configurations
-model_configs = load_from_json("/home/isaac/working_directory/misc/project-athena/src/configs/demo/model-mnist.json")
-data_configs = load_from_json("/home/isaac/working_directory/misc/project-athena/src/configs/demo/data-mnist.json")
-attack_configs = load_from_json("/home/isaac/working_directory/misc/project-athena/src/configs/demo/attack-zk-mnist.json")
+model_configs = load_from_json("../src/configs/demo/model-mnist.json")
+data_configs = load_from_json("../src/configs/demo/data-mnist.json")
+attack_configs = load_from_json("../src/configs/demo/attack-zk-mnist.json")
 
 # load the targeted model
 model_file = os.path.join(model_configs.get("dir"), model_configs.get("um_file"))
@@ -70,7 +68,7 @@ labels = np.load(label_file)
 #labels = labels[:20]
 # let save=True and specify an output folder to save the generated AEs
 generate_ae(model=target, data=data_bs, labels=labels, attack_configs=attack_configs, save=True, 
-            output_dir="/home/isaac/working_directory/misc/project-athena/generated_aes")
+            output_dir="data/")
 
 #################################################
 from tutorials.eval_model import evaluate
@@ -79,7 +77,7 @@ trans_configs = load_from_json("../src/configs/demo/athena-mnist.json")
 model_configs = load_from_json("../src/configs/demo/model-mnist.json")
 data_configs = load_from_json("../src/configs/demo/data-mnist.json")
 
-output_dir = "../results"
+output_dir = "results/"
 
 # evaluate
 outData = evaluate(trans_configs=trans_configs,
@@ -88,7 +86,7 @@ outData = evaluate(trans_configs=trans_configs,
                    save=False,
                    output_dir=output_root)
 
-outData.to_csv('/home/isaac/working_directory/misc/project-athena/dataOut.csv')
+outData.to_csv('results/dataOut.csv')
 
 
 
