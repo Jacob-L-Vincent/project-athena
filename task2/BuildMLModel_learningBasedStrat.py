@@ -159,7 +159,7 @@ if(getOverallEval):
     if(verbose>4): print("overall accuracy = {}".format(evalOut[1]))
     
 # save data
-results.to_csv("model_eval_results_{}.csv".format(activation))
+results.to_csv("results/model_eval_results_{}.csv".format(activation))
 
 if(verbose>0): print("finished running, saved evaluation output to model_eval_results_{}.csv".format(activation))
 
