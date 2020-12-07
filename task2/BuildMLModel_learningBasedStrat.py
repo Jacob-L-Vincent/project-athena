@@ -74,11 +74,6 @@ if(verbose>4): print("finished training model")
 cols=["ae_type","label","accuracy","loss"]
 results = pd.DataFrame(columns=cols)
 
-# create numpy array to add data from different AE files into
-allData = 
-
-
-
 #### Evaluate benign samples
 evalOut = model.evaluate(cleanData[8000:],  trueLabels_indexes[8000:], verbose=verModel)
 if(verbose>4): print("{} finished evaluating -- accuracy: {}".format("benigns",evalOut[1]))
@@ -90,6 +85,10 @@ results = results.append(newRow, ignore_index=True)
 # load the filenames from configs
 ae_dir = os.path.abspath(data_configs.get("ae_dir"))
 ae_files = data_configs.get("ae_files_wds")
+# create numpy array to add data from different AE files into for getting
+#  overall evaluation
+allData = np.zeros((0,28,28,1))
+allLabels = np.zeros((0))
 # iterate through each file, evaluate, and save to dataframe
 for file in ae_files:
     # set filepaths
@@ -99,17 +98,35 @@ for file in ae_files:
     data = np.load(filePath)
     #remove nan data from above to line up
     data=np.delete(data,nans,0)
+    #get test data subset
+    data=data[8000:]
+    trueLabs = trueLabels_indexes[8000:]
     # evaluate
     if(getEachEval):
-    evalOut = model.evaluate(data[8000:],  trueLabels_indexes[8000:], verbose=verModel)
-    # save results
-    if(verbose>9): print("{} finished evaluating -- accuracy: {}".format(aeLabel,evalOut[1]))
-    newRow = {cols[0]:"aes_wds",cols[1]:aeLabel,cols[2]:evalOut[1],cols[3]:evalOut[0]}
-    results = results.append(newRow, ignore_index=True)
+        evalOut = model.evaluate(data, trueLabs , verbose=verModel)
+        # save results
+        if(verbose>9): print("{} finished evaluating -- accuracy: {}".format(aeLabel,evalOut[1]))
+        newRow = {cols[0]:"aes_wds",cols[1]:aeLabel,cols[2]:evalOut[1],cols[3]:evalOut[0]}
+        results = results.append(newRow, ignore_index=True)
+    if(getOverallEval):
+        allData = np.concatenate((allData,data),axis=0)
+        allLabels = np.concatenate((allLabels,trueLabs),axis=0)
 if(verbose>4): print("finished evaluating ensemble defense AEs")
+# if getOverallEval run "allData" through evaluation
+if(getOverallEval):
+    evalOut = model.evaluate(allData, allLabels , verbose=verModel)
+    newRow = {cols[0]:"aes_wds_overall",cols[1]:"aes_wds_overall",cols[2]:evalOut[1],cols[3]:evalOut[0]}
+    results = results.append(newRow, ignore_index=True)
+    if(verbose>4): print("finished evaluating overall accuracy ensemble defense AEs")
+    if(verbose>4): print("overall accuracy = {}".format(evalOut[1]))
+
 ### Evaluate AE inputs generated in task 1
 # load the filenames from configs
 ae_files = data_configs.get("ae_files_task1")
+# create numpy array to add data from different AE files into for getting
+#  overall evaluation
+allData = np.zeros((0,28,28,1))
+allLabels = np.zeros((0))
 # iterate through each file, evaluate, and save to dataframe
 for file in ae_files:
     # set filepaths
@@ -119,13 +136,27 @@ for file in ae_files:
     data = np.load(filePath)
     #remove nan data from above to line up
     data=np.delete(data,nans,0)
+    # get test data subset
+    data = data[8000:]
+    trueLabs = trueLabels_indexes[8000:]
     # evaluate
-    evalOut = model.evaluate(data[8000:],  trueLabels_indexes[8000:], verbose=verModel)
-    # save results
-    if(verbose>9): print("{} finished evaluating -- accuracy: {}".format(aeLabel,evalOut[1]))
-    newRow = {cols[0]:"aes_task1",cols[1]:aeLabel,cols[2]:evalOut[1],cols[3]:evalOut[0]}
+    if(getEachEval):
+        evalOut = model.evaluate(data, trueLabs, verbose=verModel)
+        # save results
+        if(verbose>9): print("{} finished evaluating -- accuracy: {}".format(aeLabel,evalOut[1]))
+        newRow = {cols[0]:"aes_task1",cols[1]:aeLabel,cols[2]:evalOut[1],cols[3]:evalOut[0]}
+        results = results.append(newRow, ignore_index=True)
+    if(getOverallEval):
+        allData = np.concatenate((allData,data),axis=0)
+        allLabels = np.concatenate((allLabels,trueLabs),axis=0)
+if(verbose>4): print("finished evaluating task1 AEs")
+# if getOverallEval run "allData" through evaluation
+if(getOverallEval):
+    evalOut = model.evaluate(allData, allLabels , verbose=verModel)
+    newRow = {cols[0]:"aes_task1_overall",cols[1]:"aes_task1_overall",cols[2]:evalOut[1],cols[3]:evalOut[0]}
     results = results.append(newRow, ignore_index=True)
-if(verbose>4): print("finished evaluating ensemble defense AEs")
+    if(verbose>4): print("finished evaluating overall accuracy task1 AEs")
+    if(verbose>4): print("overall accuracy = {}".format(evalOut[1]))
     
 # save data
 results.to_csv("model_eval_results_{}.csv".format(activation))
