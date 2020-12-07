@@ -1,0 +1,200 @@
+{
+  "num_attacks": 31,
+  "configs0": {
+    "attack": "pgd",
+    "description": "espof0.1",
+    "eps": 0.1
+    
+  },
+  
+    "configs1": {
+    "attack": "pgd",
+    "description": "espof0.2",
+    "eps": 0.2
+    
+  },
+  
+    "configs2": {
+    "attack": "pgd",
+    "description": "espof0.3",
+    "eps": 0.3
+    
+  },
+  
+    "configs3": {
+    "attack": "pgd",
+    "description": "espof0.4",
+    "eps": 0.4
+    
+  },
+  
+    "configs4": {
+    "attack": "pgd",
+    "description": "espof0.5",
+    "eps": 0.5
+    
+  },
+  
+    "configs5": {
+    "attack": "pgd",
+    "description": "espof0.6",
+    "eps": 0.6
+    
+  },
+  
+    "configs6": {
+    "attack": "pgd",
+    "description": "espof0.7",
+    "eps": 0.7
+    
+  },
+  
+    "configs7": {
+    "attack": "pgd",
+    "description": "espof0.8",
+    "eps": 0.8
+    
+  },
+  
+    "configs8": {
+    "attack": "pgd",
+    "description": "espof0.9",
+    "eps": 0.9
+    
+  },
+      "configs9": {
+    "attack": "pgd",
+    "description": "espof1",
+    "eps": 1
+    
+  },
+        "configs10": {
+    "attack": "pgd",
+    "description": "maxiter10",
+    "max_iter": 10
+    
+  },
+          "configs11": {
+    "attack": "pgd",
+    "description": "maxiter12",
+    "max_iter": 12
+    
+  },
+          "configs12": {
+    "attack": "pgd",
+    "description": "maxiter14",
+    "max_iter": 14
+    
+  },
+          "configs13": {
+    "attack": "pgd",
+    "description": "maxiter16",
+    "max_iter": 16
+    
+  },
+          "configs14": {
+    "attack": "pgd",
+    "description": "maxiter18",
+    "max_iter": 18
+    
+  },
+          "configs15": {
+    "attack": "pgd",
+    "description": "maxiter20",
+    "max_iter": 20
+    
+  },
+          "configs16": {
+    "attack": "pgd",
+    "description": "maxiter22",
+    "max_iter": 22
+    
+  },
+          "configs17": {
+    "attack": "pgd",
+    "description": "maxiter24",
+    "max_iter": 24
+    
+  },
+          "configs18": {
+    "attack": "pgd",
+    "description": "maxiter26",
+    "max_iter":26
+    
+  },
+          "configs19": {
+    "attack": "pgd",
+    "description": "maxiter28",
+    "max_iter": 28
+    
+  },
+            "configs20": {
+    "attack": "pgd",
+    "description": "maxiter30",
+    "max_iter": 30
+    
+  },
+      "configs21": {
+    "attack": "fgsm",
+    "description": "fgespof0.1",
+    "eps": 0.1
+    
+  },
+      "configs22": {
+    "attack": "fgsm",
+    "description": "fgespof0.2",
+    "eps": 0.2
+    
+  },
+        "configs23": {
+    "attack": "fgsm",
+    "description": "fgespof0.3",
+    "eps": 0.3
+    
+  },
+        "configs24": {
+    "attack": "fgsm",
+    "description": "fgespof0.4",
+    "eps": 0.4
+    
+  },
+        "configs25": {
+    "attack": "fgsm",
+    "description": "fgespof0.5",
+    "eps": 0.5
+    
+  },
+        "configs26": {
+    "attack": "fgsm",
+    "description": "fgespof0.6",
+    "eps": 0.6
+    
+  },
+        "configs27": {
+    "attack": "fgsm",
+    "description": "fgespof0.7",
+    "eps": 0.7
+    
+  },
+        "configs28": {
+    "attack": "fgsm",
+    "description": "fgespof0.8",
+    "eps": 0.8
+    
+  },
+        "configs29": {
+    "attack": "fgsm",
+    "description": "fgespof0.9",
+    "eps": 0.9
+    
+  },
+
+  "configs30": {
+    "attack": "fgsm",
+    "description": "fgespof1",
+    "eps": 1
+    
+  }
+  
+  
+}
