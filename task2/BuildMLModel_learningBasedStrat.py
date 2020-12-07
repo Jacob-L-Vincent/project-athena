@@ -23,27 +23,30 @@ from misc_basicFuncs import getMaxIndex
 trans_configs = load_from_json("configs/athena-mnist.json")
 model_configs = load_from_json("configs/model-mnist.json")
 data_configs = load_from_json("configs/data-mnist.json")
-verbose = 10
+verbose = 10   # print statements in this script
 verModel = 0
+activations = ["sigmoid","relu","elu"]
+# set the activation for model training
+activation = activations[2]  
+# set boolean to get individual evaluations or bulk for each category
+getEachEval = True
+getOverallEval = True
 
 ################################################################
-def trainNewModel(inputData, trueData, epochs=7, verbose=2):
+def trainNewModel(inputData, trueData, epochs=7, verbose=2, active="relu"):
     model = ker.models.Sequential([
       ker.layers.Flatten(input_shape=(28, 28)),
-      ker.layers.Dense(128, activation='sigmoid'),
-      ker.layers.Dense(128, activation='sigmoid'),
+      ker.layers.Dense(128, activation=active),
+      ker.layers.Dense(128, activation=active),
       ker.layers.Dense(10)
     ])
-
     model.compile(optimizer='adam',
                   loss=ker.losses.SparseCategoricalCrossentropy(from_logits=True),
                   metrics=['accuracy'])
-
     model.fit(inputData, trueData, epochs=7)
-    
     return model
-
 ############################################################
+
 # load data
 cleanData = np.load(data_configs.get("bs_file"))
 trueLabels = np.load(data_configs.get("label_file"))
@@ -64,12 +67,17 @@ ensPred_indexes = np.delete(ensPred_indexes,nans,0)
 trueLabels_indexes = np.delete(trueLabels_indexes,nans,0)
 
 # Train ML Model
-model = trainNewModel(cleanData[:8000,:,:,0], ensPred_indexes[:8000])
+model = trainNewModel(cleanData[:8000,:,:,0], ensPred_indexes[:8000],active=activation)
 if(verbose>4): print("finished training model")
 
 # create dataframe to save evaluation results
 cols=["ae_type","label","accuracy","loss"]
 results = pd.DataFrame(columns=cols)
+
+# create numpy array to add data from different AE files into
+allData = 
+
+
 
 #### Evaluate benign samples
 evalOut = model.evaluate(cleanData[8000:],  trueLabels_indexes[8000:], verbose=verModel)
@@ -92,6 +100,7 @@ for file in ae_files:
     #remove nan data from above to line up
     data=np.delete(data,nans,0)
     # evaluate
+    if(getEachEval):
     evalOut = model.evaluate(data[8000:],  trueLabels_indexes[8000:], verbose=verModel)
     # save results
     if(verbose>9): print("{} finished evaluating -- accuracy: {}".format(aeLabel,evalOut[1]))
@@ -119,9 +128,9 @@ for file in ae_files:
 if(verbose>4): print("finished evaluating ensemble defense AEs")
     
 # save data
-results.to_csv("model_eval_results.csv")
+results.to_csv("model_eval_results_{}.csv".format(activation))
 
-if(verbose>0): print("finished running, saved evaluation output to model_eval_results.csv")
+if(verbose>0): print("finished running, saved evaluation output to model_eval_results_{}.csv".format(activation))
 
 
 
