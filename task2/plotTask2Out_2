@@ -10,7 +10,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
-dataFile = "model_eval_results.csv"
+dataFile = "results/model_eval_results_relu.csv"
 results = pd.read_csv(dataFile)
 # clean AE labels
 results["simpName"]=results['label'].str.split('-',3)
