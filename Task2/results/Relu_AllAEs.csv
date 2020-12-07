@@ -1,0 +1,4 @@
+,Unnamed: 0,ae_type,label,accuracy,loss,simpName
+0,0,benign,benign,0.9603413939476012,0.13584913313388824,benign
+46,46,aes_wds_overall,aes_wds_overall,0.8995760679244995,0.4393540620803833,aes_wds_overall
+78,78,aes_task1_overall,aes_task1_overall,0.6031383872032166,2.6391286849975586,aes_task1_overall
